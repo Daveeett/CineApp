@@ -1,5 +1,0 @@
-Install-Package Microsoft.EntityFrameworkCore -Version 6.0.28
-Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 6.0.28
-Install-Package Microsoft.EntityFrameworkCore.Tools -Version 6.0.28
-Install-Package Swashbuckle.AspNetCore -Version 6.2.3
-Install-Package Swashbuckle.AspNetCore.Annotations -Version 6.7.2

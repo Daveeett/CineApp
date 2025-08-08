@@ -1,3 +1,3 @@
 Pasos a seguir:
-Ejecutar el archivo CrearDB
-Ejecutar el archivo InsertarDB
+Ejecutar el archivo CrearDb-SP
+Ejecutar el archivo InsertarDatos

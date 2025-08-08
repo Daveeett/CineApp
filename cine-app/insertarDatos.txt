@@ -1,0 +1,21 @@
+use CineDb
+INSERT INTO pelicula (nombre, duracion)
+VALUES 
+  ('El Origen', 148),
+  ('Avatar', 162),
+  ('Coco', 105);
+
+INSERT INTO sala_cine (nombre, estado)
+VALUES 
+  ('Sala A', 'Activa'),
+  ('Sala B', 'Activa'),
+  ('Sala C', 'No activa');
+
+INSERT INTO pelicula_salacine (id_sala_cine, id_pelicula, fecha_publicacion, fecha_fin)
+VALUES 
+  (1, 1, '2025-08-01', '2025-08-15'),  
+  (2, 2, '2025-08-05', '2025-08-20'),  
+  (1, 3, '2025-08-10', '2025-08-25');  
+
+SELECT * FROM pelicula;
+SELECT * FROM sala_cine;

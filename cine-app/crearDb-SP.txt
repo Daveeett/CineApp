@@ -1,0 +1,56 @@
+-- Crear base de datos
+CREATE DATABASE CineDb;
+GO
+
+USE CineDb;
+GO
+
+-- Tabla: Película
+CREATE TABLE pelicula (
+    id_pelicula INT PRIMARY KEY IDENTITY(1,1),
+    nombre NVARCHAR(150) NOT NULL,
+    duracion INT NOT NULL -- en minutos
+);
+
+-- Tabla: Sala Cine
+CREATE TABLE sala_cine (
+    id_sala INT PRIMARY KEY IDENTITY(1,1),
+    nombre NVARCHAR(100) NOT NULL,
+    estado NVARCHAR(50) NOT NULL
+);
+
+-- Tabla: Relación Película - Sala
+CREATE TABLE pelicula_salacine (
+    id_pelicula_sala INT PRIMARY KEY IDENTITY(1,1),
+    id_sala_cine INT NOT NULL,
+    id_pelicula INT NOT NULL,
+    fecha_publicacion DATE NOT NULL,
+    fecha_fin DATE NOT NULL,
+    CONSTRAINT FK_psc_sala FOREIGN KEY (id_sala_cine) REFERENCES sala_cine(id_sala),
+    CONSTRAINT FK_psc_pelicula FOREIGN KEY (id_pelicula) REFERENCES pelicula(id_pelicula),
+    CONSTRAINT UQ_pelicula_sala UNIQUE (id_sala_cine, id_pelicula)
+);
+
+-- Stored Procedure para evaluar estado de sala por nombre
+GO
+CREATE PROCEDURE sp_ObtenerEstadoSala 
+    @nombreSala NVARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @cantidad INT;
+
+    SELECT @cantidad = COUNT(*)
+    FROM pelicula_salacine psc
+    INNER JOIN sala_cine sc ON psc.id_sala_cine = sc.id_sala
+    WHERE sc.nombre = @nombreSala;
+
+    IF @cantidad < 3
+        SELECT 'Sala disponible' AS Estado;
+    ELSE IF @cantidad BETWEEN 3 AND 5
+        SELECT CONCAT('Sala con ', @cantidad, ' películas asignadas') AS Estado;
+    ELSE
+        SELECT 'Sala no disponible' AS Estado;
+END;
+GO

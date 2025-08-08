@@ -1,0 +1,45 @@
+<div class="container py-4">
+  <div class="card mb-4">
+    <div class="card-header">Asignar Película a Sala</div>
+    <div class="card-body">
+      <form (ngSubmit)="guardar()">
+        <div class="row">
+          <div class="col-md-5 mb-3">
+            <label>Sala</label>
+            <select class="form-select" [(ngModel)]="nuevaAsignacion.id_Sala" name="sala" required>
+              <option value="" disabled selected>Seleccione una sala</option>
+              <option *ngFor="let s of salas" [value]="s.id_Sala">{{ s.nombre }}</option>
+            </select>
+          </div>
+          <div class="col-md-5 mb-3">
+            <label>Película</label>
+            <select class="form-select" [(ngModel)]="nuevaAsignacion.id_Pelicula" name="pelicula" required>
+              <option value="" disabled selected>Seleccione una película</option>
+              <option *ngFor="let p of peliculas" [value]="p.id_Pelicula">{{ p.nombre }}</option>
+            </select>
+          </div>
+          <div class="col-md-2 d-flex align-items-end">
+            <button class="btn btn-success w-100">Asignar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Sala</th>
+        <th>Película</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of asignaciones">
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="eliminar(a.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
